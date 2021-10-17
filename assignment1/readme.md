@@ -4,7 +4,7 @@
 
 ## 运行结果
 
-<img src="https://gitee.com/ljh112233/whatisthis/raw/master//static/image-20211017170706262.png" alt="image-20211017170706262" style="zoom: 50%;" />
+<img src="https://gitee.com/ljh112233/whatisthis/raw/master//static/image-20211017170706262.png" alt="image-20211017170706262" style="zoom: 10%;" />
 
 ## 实现细节
 
