@@ -11,9 +11,6 @@
 实现了main.cpp中的get_model_matrix, get_rotation, get_projection_matrix函数。
 
 
-
-太丑了吧兄弟
-
 # 相关知识
 
 
