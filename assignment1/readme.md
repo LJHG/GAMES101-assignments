@@ -4,15 +4,12 @@
 
 ## 运行结果
 
-<img src="https://gitee.com/ljh112233/whatisthis/raw/master//static/image-20211017170706262.png" alt="image-20211017170706262" style="zoom: 10%;" />
+<img src="https://gitee.com/ljh112233/whatisthis/raw/master//static/image-20211024134106868.png" alt="image-20211024134106868" style="zoom: 50%;" />
 
 ## 实现细节
 
 实现了main.cpp中的get_model_matrix, get_rotation, get_projection_matrix函数。
 
-
-
-太丑了吧兄弟
 
 # 相关知识
 
