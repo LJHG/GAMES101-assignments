@@ -28,10 +28,50 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     return model;
 }
 
-Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
+Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
+                                      float zNear, float zFar)
 {
-    // TODO: Copy-paste your implementation from the previous assignment.
-    Eigen::Matrix4f projection;
+    // Students will implement this function
+
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+
+    // TODO: Implement this function
+    // Create the projection matrix for the given parameters.
+    // Then return it.
+
+    std::cout<<zNear<<" "<<zFar<<std::endl;
+
+    float n = -zNear;
+    float f = -zFar;
+    float t = tan( (eye_fov/360)*MY_PI ) * abs(n);
+    float b = t * (-1);
+    float r = aspect_ratio * t;
+    float l = r * (-1);
+
+    // matric for orthographic
+    Eigen::Matrix4f ortho_scale = Eigen::Matrix4f::Identity();
+    Eigen::Matrix4f ortho_trans = Eigen::Matrix4f::Identity();
+    ortho_scale(0,0) = 2/(r-l);
+    ortho_scale(1,1) = 2/(t-b);
+    ortho_scale(2,2) = 2/(n-f);
+
+    ortho_trans(0,3) = (-1) * (r+l)/2;
+    ortho_trans(1,3) = (-1) * (t+b)/2;
+    ortho_trans(2,3) = (-1) * (n+f)/2;
+
+    Eigen::Matrix4f ortho = ortho_scale * ortho_trans;
+
+    // persp -> ortho matrix
+    Eigen::Matrix4f ptom = Eigen::Matrix4f::Zero();
+    ptom(0,0) = n; 
+    ptom(1,1) = n;
+    ptom(3,2) = 1;
+    ptom(2,2) = n+f;
+    ptom(2,3) = (-1)*n*f;
+
+
+    // cal projection matrix
+    projection = ortho * ptom;
 
     return projection;
 }
