@@ -1,11 +1,12 @@
+
 # Assignment2
 
 ## 运行结果
 
-<img src="https://gitee.com/ljh112233/whatisthis/raw/master//static/image-20211024135139652.png" alt="image-20211024135139652" style="zoom:50%;" />
+
+
+<img src="https://gitee.com/ljh112233/whatisthis/raw/master/static/image-20220101175340666.png" alt="image-20220101175340666" style="zoom:50%;" />
 
 
 
-## 实现细节
-
-请见 xxx
+相关知识以及详细介绍请见 [Assignment2 · GitBook (ljhblog.top)](https://www.ljhblog.top/CG/GAMES101/assignment2.html)
