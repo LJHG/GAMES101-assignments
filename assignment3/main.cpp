@@ -58,7 +58,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
 
     float n = zNear;
     float f = zFar;
-    float t = tan( (eye_fov/360)*MY_PI ) * abs(n);
+    float t = -tan( (eye_fov/360)*MY_PI ) * abs(n); //解决颠倒问题 http://games-cn.org/forums/topic/%e7%bb%93%e6%9e%9c%e5%87%ba%e7%8e%b0%e4%b8%8a%e4%b8%8b%e9%a2%a0%e5%80%92%ef%bc%8c%e6%80%8e%e4%b9%88%e5%8a%9e%ef%bc%9f%e5%8f%aa%e5%8a%a0%e4%b8%80%e4%b8%aa%e8%b4%9f%e5%8f%b7%e5%8d%b3%e5%8f%af/
     float b = t * (-1);
     float r = aspect_ratio * t;
     float l = r * (-1);
