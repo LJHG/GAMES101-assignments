@@ -150,6 +150,7 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 }
 
 static bool insideTriangle(int x, int y, const Vector4f* _v){
+    //_v是长为3的数组，数组中每个元素是一个Vector4f
     Vector3f v[3];
     for(int i=0;i<3;i++)
         v[i] = {_v[i].x(),_v[i].y(), 1.0};
@@ -280,6 +281,49 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
     // Use: Instead of passing the triangle's color directly to the frame buffer, pass the color to the shaders first to get the final color;
     // Use: auto pixel_color = fragment_shader(payload);
 
+
+    auto v = t.toVector4(); 
+    // TODO : Find out the bounding box of current triangle.
+
+     //确定bounding box的坐标
+    int left = std::min(v[0][0],std::min(v[1][0],v[2][0]));
+    int bottom = std::min(v[0][1],std::min(v[1][1],v[2][1]));
+    int right = std::max(v[0][0],std::max(v[1][0],v[2][0])) + 1 ; //向上取整
+    int top = std::max(v[0][1],std::max(v[1][1],v[2][1])) + 1;
+
+
+
+    // std::cout<<left<<" "<<right<<" "<<" and "<<bottom<<" "<<top<<"\n";
+
+    // iterate through the pixel and find if the current pixel is inside the triangle
+    for(int x=left;x<=right;x++){
+        for(int y=bottom;y<=top;y++){
+            if(insideTriangle(x,y,t.v)){
+                //获得z的深度差值
+                auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+                float w_reciprocal = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+                float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+                z_interpolated *= w_reciprocal;
+
+                int index = get_index(x,y);
+                if(z_interpolated < depth_buf[index] ){  // if near
+                    // 对属性进行插值
+                    auto interpolated_color = interpolate(alpha,beta,gamma,t.color[0],t.color[1],t.color[2],1);
+                    auto interpolated_normal = interpolate(alpha,beta,gamma,t.normal[0],t.normal[1],t.normal[2],1);
+                    auto interpolated_texcoords =  interpolate(alpha,beta,gamma,t.tex_coords[0],t.tex_coords[1],t.tex_coords[2],1);
+                    auto interpolated_viewpos = interpolate(alpha,beta,gamma,view_pos[0],view_pos[1],view_pos[2],1);
+                    fragment_shader_payload payload( interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
+                    payload.view_pos = interpolated_viewpos;
+                    auto pixel_color = fragment_shader(payload);
+                    Eigen::Vector2i point;
+                    point << x,y;
+                    set_pixel(point,pixel_color);
+                    depth_buf[index] = z_interpolated;
+                }
+                
+            }
+        }
+    }
  
 }
 
