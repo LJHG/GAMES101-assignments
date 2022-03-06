@@ -2,7 +2,8 @@
 assignments of GAMES101
 
 1. [assignment1](./assignment1)
-1. [assignment2](./assignment2)
-1. [assignment3](./assignment3)
-1. [assignment4](./assignment4)
+2. [assignment2](./assignment2)
+3. [assignment3](./assignment3)
+4. [assignment4](./assignment4)
+5. [assignment5](./assignment5)
 
