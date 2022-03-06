@@ -232,9 +232,23 @@ inline Intersection Triangle::getIntersection(Ray ray)
     t_tmp = dotProduct(e2, qvec) * det_inv;
 
     // TODO find ray triangle intersection
-
-
-
+    /*
+        Intersection的元素：
+            bool happened;
+            Vector3f coords;
+            Vector3f normal;
+            double distance;
+            Object* obj;
+            Material* m;
+    */
+   if(t_tmp > 0 && u >=0 && v >=0 && (1-u-v) >=0){
+        inter.happened = true;
+        inter.coords = ray(t_tmp); //ray重载了operator ()，用来计算光的转播距离
+        inter.normal = normal;
+        inter.distance = t_tmp;
+        inter.obj = this;
+        inter.m = m;
+    }
 
     return inter;
 }
