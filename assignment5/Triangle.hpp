@@ -11,6 +11,18 @@ bool rayTriangleIntersect(const Vector3f& v0, const Vector3f& v1, const Vector3f
     // that's specified bt v0, v1 and v2 intersects with the ray (whose
     // origin is *orig* and direction is *dir*)
     // Also don't forget to update tnear, u and v.
+    Vector3f e1 = v1 - v0;
+    Vector3f e2 = v2 - v0;
+    Vector3f s = orig - v0;
+    Vector3f s1 = crossProduct(dir,e2);
+    Vector3f s2 = crossProduct(s,e1);
+    
+    tnear = dotProduct(s2,e2)/dotProduct(s1,e1);
+    u = dotProduct(s1,s)/dotProduct(s1,e1);
+    v = dotProduct(s2,dir)/dotProduct(s1,e1);
+    if(tnear > 0 && u >=0 && v >=0 && (1-u-v) >=0){
+        return true;
+    }
     return false;
 }
 
@@ -43,7 +55,7 @@ public:
             const Vector3f& v1 = vertices[vertexIndex[k * 3 + 1]];
             const Vector3f& v2 = vertices[vertexIndex[k * 3 + 2]];
             float t, u, v;
-            if (rayTriangleIntersect(v0, v1, v2, orig, dir, t, u, v) && t < tnear)
+            if (rayTriangleIntersect(v0, v1, v2, orig, dir, t, u, v) && t < tnear) // 光线与每一个三角形求交，然后把记录下最小的t，以及u,v -> 与三角形求交的位置
             {
                 tnear = t;
                 uv.x = u;
