@@ -4,3 +4,4 @@
 */Rasterizer
 */cmake_install.cmake
 */build
+*.DS_Store
