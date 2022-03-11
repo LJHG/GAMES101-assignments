@@ -119,7 +119,8 @@ Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
 
     // TODO Traverse the BVH to find intersection
     Vector3f invDir = ray.direction_inv;
-    std::array<int, 3> dirIsNeg = {int(ray.direction.x > 0), int(ray.direction.y > 0), int(ray.direction.z) > 0};
+    //这里需要将>0修改为>=0，不然的话光线和物体求交点全是空
+    std::array<int, 3> dirIsNeg = {int(ray.direction.x >= 0), int(ray.direction.y >= 0), int(ray.direction.z) >= 0};
 
     if(!node->bounds.IntersectP(ray,invDir,dirIsNeg) || node == nullptr){
         return _intersection;
