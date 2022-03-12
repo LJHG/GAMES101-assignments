@@ -95,14 +95,14 @@ Vector3f Scene::shade(Intersection& hit_obj, Vector3f wo) const {
 
     //间接光照
     Vector3f Lo_indirect = {0,0,0}; //间接光照的贡献
-    //重新采样
-    Vector3f obj1_to_obj2_dir = hit_obj.m->sample(-wo, hit_obj.normal).normalized();
-    float obj2_pdf = hit_obj.m->pdf(-wo,obj1_to_obj2_dir,hit_obj.normal);
-    Intersection t_2 = intersect(Ray(hit_obj.coords, obj1_to_obj2_dir));
-    if(t_2.happened){
-        //光线和物体相交
-        //俄罗斯轮盘赌
-        if(get_random_float() < RussianRoulette){
+    //俄罗斯轮盘赌
+    if(get_random_float() < RussianRoulette){
+        //重新采样
+        Vector3f obj1_to_obj2_dir = hit_obj.m->sample(-wo, hit_obj.normal).normalized();
+        float obj2_pdf = hit_obj.m->pdf(-wo,obj1_to_obj2_dir,hit_obj.normal);
+        Intersection t_2 = intersect(Ray(hit_obj.coords, obj1_to_obj2_dir));
+        if(t_2.happened && !t_2.m->hasEmission()){ //这里需要确定交点处不会发光，来确保这是间接光照而不是直接射到了光源
+            //光线和物体相交
             Vector3f f_r = hit_obj.m->eval(-obj1_to_obj2_dir, wo, hit_obj.normal);
             float cosine = dotProduct(hit_obj.normal, obj1_to_obj2_dir); 
             if(obj2_pdf > pdf_epsilon)
