@@ -7,4 +7,5 @@ assignments of GAMES101
 4. [assignment4](./assignment4)
 5. [assignment5](./assignment5)
 6. [assignment6](./assignment6)
+7. [assignment7](./assignment7)
 
