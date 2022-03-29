@@ -2,7 +2,7 @@
 
 ## 运行结果
 
-<img src="https://gitee.com/ljh112233/whatisthis/raw/master/static/OB6G~@HX7%7D%7DGEM@$EC69YYT.png" alt="img" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/ljhgpp/whatisthis/main/static/OB6G~@HX7%7D%7DGEM@$EC69YYT.png" alt="img" style="zoom:50%;" />
 
 
 

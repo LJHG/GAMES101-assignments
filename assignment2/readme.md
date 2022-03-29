@@ -5,7 +5,7 @@
 
 
 
-<img src="https://gitee.com/ljh112233/whatisthis/raw/master/static/image-20220101175340666.png" alt="image-20220101175340666" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/ljhgpp/whatisthis/main/static/image-20220101175340666.png" alt="image-20220101175340666" style="zoom:50%;" />
 
 
 
